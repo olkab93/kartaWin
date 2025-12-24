@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100svh;
+    min-height: 100dvh;
+}
+
+h1 {
+    margin-bottom: 24px;
+    color: black;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tab {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid #cccccc00;
+    background: rgba(255, 255, 255, 0.218);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab.active {
+    background: var(--theme);
+    color: white;
+    border-color: var(--theme);
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: min(90vw, 420px);
+    aspect-ratio: 5 / 2;
+}
+
+.stamp-slot {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px dashed #bbb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #555;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.stamp-slot.stamped {
+    border: 2px solid var(--theme);
+    background-color: #f4f4f9;
+    animation: pop 0.25s ease-out;
+}
+
+.controls {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    background-color: var(--theme);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.message {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--theme);
+    text-align: center;
+}
+
+.counter {
+    font-size: 15px;
+    color: #555;
+}
+
+.stamped .stamp {
+    transform: rotate(-15deg) scale(1.05);
+    filter: blur(0.2px);
+    opacity: 0.9;
+}
+
+.stamp {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+}
+
+.stamp-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes stampEffect {
+    0% {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.2) rotate(10deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) rotate(-10deg);
+    }
+}

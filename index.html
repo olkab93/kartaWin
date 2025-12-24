@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KARTA WIN 🍷</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <h1>KARTA WIN 🍷</h1>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="myFault" id="myFault">Na Siebie</button>
+    <button class="tab" data-tab="broadway" id="broadway">Na Broadway</button>
+  </div>
+
+  <div class="card" id="card"></div>
+
+  <div class="controls">
+    <button id="addStampBtn">WINA</button>
+    <button id="resetCardBtn" hidden>Reset</button>
+    <div class="counter">Liczba przeWINień: <span id="totalCounter">0</span> 😅</div>
+    <div class="message" id="message"></div>
+  </div>
+
+  <audio id="stampSound" preload="auto">
+    <source src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" type="audio/ogg" />
+  </audio>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
