@@ -1,3 +1,5 @@
+import { supabase } from './supabase-config.js';
+
 const card = document.getElementById("card");
 const addStampBtn = document.getElementById("addStampBtn");
 const resetCardBtn = document.getElementById("resetCardBtn");
@@ -35,6 +37,42 @@ const state = {
 
 let activeTab = "myFault";
 let availableMessages = [...TABS[activeTab].messages];
+
+
+// load state from Supabase
+async function loadStateFromSupabase() {
+    try {
+        const { data, error } = await supabase
+            .from('kartawin_state')
+            .select('myFault, broadway')
+            .eq('id', 1)
+            .single();
+
+        if (error) throw error;
+        if (data) {
+            state.myFault = data.myFault;
+            state.broadway = data.broadway;
+        }
+    } catch (error) {
+        console.warn("Supabase load failed, using local state:", error);
+    }
+}
+
+// save state to Supabase
+async function saveStateToSupabase() {
+    try {
+        await supabase
+            .from('kartawin_state')
+            .update({
+                myFault: state.myFault,
+                broadway: state.broadway,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', 1);
+    } catch (error) {
+        console.warn("Supabase save failed:", error);
+    }
+}
 
 function getRandomCompletionMessage() {
     if (availableMessages.length === 0) {
@@ -126,6 +164,7 @@ addStampBtn.addEventListener("click", () => {
     }
 
     render();
+    saveStateToSupabase();
 });
 
 resetCardBtn.addEventListener("click", () => {
@@ -135,7 +174,12 @@ resetCardBtn.addEventListener("click", () => {
     addStampBtn.hidden = false;
     resetCardBtn.hidden = true;
     render();
+    saveStateToSupabase();
 });
 
-switchTab(activeTab);
+// Load from Supabase, then initialize UI
+(async () => {
+    await loadStateFromSupabase();
+    switchTab(activeTab);
+})();
 
